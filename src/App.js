@@ -1,24 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { createContext, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import AddBook from "./Components/AddBook/AddBook";
+import EditBook from "./Components/EditBook/EditBook";
+import Home from './Components/Home/Home';
+import Menu from './Components/Menu/Menu';
+export const UserContext = createContext()
 
 function App() {
+  const [data, setData] = useState({});
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={[data, setData]}>
+      <Router>
+        <Menu></Menu>
+        <Switch>
+          <Route path="/add-book">
+            <AddBook></AddBook>
+          </Route>
+          <Route path="/edit-book">
+            <EditBook></EditBook>
+          </Route>
+          <Route path="/">
+            <Home></Home>
+          </Route>
+        </Switch>
+      </Router>
+    </UserContext.Provider>
   );
 }
 
